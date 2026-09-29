@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鲍泳希 | 视觉设计作品集 Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Patrick+Hand&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FAF6EE',
+                        paper: '#F4EFE6',
+                        darkText: '#2B2520',
+                        warmPink: '#FFB7C5',
+                        softGreen: '#C5E8B7',
+                        babyBlue: '#BDE0FE',
+                        vibrantOrange: '#FFC085',
+                        sketchGray: '#7A7267'
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                        hand: ['Caveat', 'Patrick Hand', 'cursive'],
+                        art: ['"ZCOOL KuaiLe"', 'cursive'],
+                        brush: ['"Ma Shan Zheng"', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FAF6EE;
+            color: #2B2520;
+            background-image: radial-gradient(#2b2520 0.4px, transparent 0.4px);
+            background-size: 24px 24px;
+            overflow-x: hidden;
+        }
+
+        .handwritten {
+            font-family: 'Caveat', 'Patrick Hand', cursive;
+        }
+
+        .chinese-hand {
+            font-family: 'ZCOOL KuaiLe', cursive;
+        }
+
+        /* Handwritten annotation highlight */
+        .highlight-sketch {
+            position: relative;
+            display: inline-block;
+        }
+        .highlight-sketch::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 183, 197, 0.6);
+            border-radius: 4px;
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+
+        /* Tape / Sticker Effect */
+        .tape {
+            background-color: rgba(255, 255, 255, 0.65);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+            border-left: 2px dashed rgba(0,0,0,0.12);
+            border-right: 2px dashed rgba(0,0,0,0.12);
+        }
+
+        .paper-shadow {
+            box-shadow: 6px 6px 0px #2B2520;
+        }
+
+        .paper-shadow-sm {
+            box-shadow: 3px 3px 0px #2B2520;
+        }
+
+        .sticker-hover {
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .sticker-hover:hover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+
+        /* Slide arrow keyframe across title */
+        @keyframes slideAcross {
+            0% {
+                left: -5%;
+            }
+            50% {
+                left: 82%;
+            }
+            100% {
+                left: -5%;
+            }
+        }
+        .animate-slide-across {
+            animation: slideAcross 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* Keyframes for drawing effect */
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .animate-draw {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2.5s ease-in-out forwards;
+        }
+
+        .polaroid-img {
+            filter: contrast(102%) saturate(95%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF6EE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2B2520;
+            border-radius: 4px;
+        }
+
+        /* 3D Coverflow Slide positioning classes */
+        .coverflow-slide {
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform, opacity, z-index;
+        }
+
+        /* Handwritten circle stroke drawing animation */
+        @keyframes drawStroke {
+            0% {
+                stroke-dashoffset: 2200;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .animate-draw-line {
+            stroke-dasharray: 2200;
+            stroke-dashoffset: 2200;
+            animation: drawStroke 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .animate-draw-line-delay {
+            stroke-dasharray: 2200;
+            stroke-dashoffset: 2200;
+            animation: drawStroke 2.5s cubic-bezier(0.25, 1, 0.5, 1) 0.25s forwards;
+        }
+    </style>
+</head>
+<body class="relative selection:bg-warmPink selection:text-darkText">
+
+    <nav class="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl bg-cream/90 backdrop-blur-md border-2 border-darkText rounded-full px-4 sm:px-6 py-2 shadow-md flex items-center justify-between gap-2">
+        <a href="#cover" class="flex items-center gap-2 font-art text-darkText hover:text-vibrantOrange transition leading-none shrink-0">
+            <svg class="w-6 h-6 text-darkText stroke-[2] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M12 2L15 9L22 9L16.5 13.5L18.5 20.5L12 16L5.5 20.5L7.5 13.5L2 9L9 9Z" stroke-linejoin="round"/>
+            </svg>
+            <div class="flex flex-col">
+                <span class="text-xl font-art leading-none">鲍泳希</span>
+                <span class="text-[10px] sm:text-xs font-hand tracking-wider opacity-80 leading-tight">Portfolio</span>
+            </div>
+        </a>
+        <div class="hidden md:flex items-center gap-3 lg:gap-6 font-art text-base lg:text-lg text-darkText whitespace-nowrap">
+            <a href="#about" class="hover:underline decoration-warmPink decoration-4 underline-offset-4">关于我</a>
+            <a href="#p1" class="hover:underline decoration-softGreen decoration-4 underline-offset-4">品牌视觉设计</a>
+            <a href="#p2" class="hover:underline decoration-vibrantOrange decoration-4 underline-offset-4">导视系统与环境设计</a>
+            <a href="#p3" class="hover:underline decoration-babyBlue decoration-4 underline-offset-4">宣传物料设计</a>
+            <a href="#p4" class="hover:underline decoration-warmPink decoration-4 underline-offset-4">新媒体运营</a>
+        </div>
+        <a href="#contact" class="bg-vibrantOrange px-3.5 sm:px-4 py-1.5 rounded-full border-2 border-darkText font-art text-base lg:text-lg hover:bg-warmPink transition paper-shadow-sm whitespace-nowrap shrink-0">
+            联系方式
+        </a>
+    </nav>
+
+    <section id="cover" class="min-h-screen relative flex flex-col items-center justify-center p-6 pt-24 overflow-hidden border-b-2 border-darkText">
+        <div class="absolute top-20 left-[10%] rotate-[-12deg] hidden lg:block sticker-hover">
+            <div class="bg-warmPink/80 border-2 border-darkText p-3 rounded-2xl paper-shadow-sm font-hand text-xl font-bold">
+                ✨ Brand Identity Design
+            </div>
+        </div>
+
+        <div class="absolute bottom-20 left-[8%] rotate-[8deg] hidden md:block sticker-hover">
+            <div class="bg-paper border-2 border-darkText px-4 py-2.5 rounded-2xl paper-shadow-sm font-hand text-xl font-bold">
+                🎨 Graphic & Marketing Design
+            </div>
+        </div>
+
+        <div class="absolute top-24 right-[12%] rotate-[15deg] hidden lg:block sticker-hover">
+            <div class="bg-babyBlue border-2 border-darkText px-4 py-2.5 rounded-2xl paper-shadow-sm font-hand text-xl font-bold">
+                🌿 Environmental & Wayfinding Design
+            </div>
+        </div>
+
+        <div class="absolute bottom-28 right-[10%] rotate-[-6deg] hidden md:block sticker-hover">
+            <div class="bg-vibrantOrange/80 border-2 border-darkText px-4 py-2.5 rounded-2xl paper-shadow-sm font-hand text-xl font-bold text-darkText">
+                📱 Social Media Design
+            </div>
+        </div>
+
+        <div class="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
+            <div class="inline-flex items-center gap-2 bg-softGreen px-4 py-1.5 rounded-full border-2 border-darkText paper-shadow-sm mb-6 rotate-[-2deg]">
+                <svg class="w-5 h-5 text-darkText" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                <span class="font-hand text-xl font-bold">Visual & Spatial Design Portfolio</span>
+            </div>
+
+            <div class="relative my-6 inline-block">
+                <h1 class="relative z-10 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-art tracking-wider text-darkText drop-shadow-md leading-none px-4 py-2">
+                    个人作品集
+                </h1>
+                
+                <svg class="absolute w-[145%] h-[175%] -left-[22.5%] -top-[37.5%] pointer-events-none text-warmPink z-0" viewBox="0 0 680 230" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                    <!-- 第一圈手绘线条（宽幅延伸，完好圈住“个人作品集”5字） -->
+                    <path d="M 45 115 C 35 25, 230 12, 360 15 C 490 18, 650 30, 658 112 C 665 192, 510 218, 335 215 C 160 212, 22 188, 28 110 C 35 32, 210 12, 350 15 C 490 18, 640 40, 648 110" 
+                          stroke-width="5" class="animate-draw-line opacity-90" />
+                    <!-- 第二圈手绘线条（自然重叠与收尾甩笔手感） -->
+                    <path d="M 28 110 C 30 20, 220 8, 355 10 C 490 12, 662 22, 668 106 C 674 190, 520 222, 320 220 C 130 218, 12 180, 18 100 C 24 26, 200 10, 340 12 C 470 14, 615 32, 625 90" 
+                          stroke-width="3.5" class="animate-draw-line-delay opacity-80" />
+                </svg>
+            </div>
+
+            <a href="#about" class="group relative inline-flex items-center gap-3 bg-warmPink text-darkText font-art text-2xl px-8 py-4 rounded-2xl border-3 border-darkText paper-shadow hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all mt-6 mb-4">
+                <span>Explore My Work</span>
+                <span class="group-hover:translate-x-2 transition-transform">→</span>
+            </a>
+        </div>
+
+        <div class="absolute bottom-6 flex flex-col items-center font-hand text-lg text-sketchGray animate-pulse">
+            <span>Scroll to Open Notebook</span>
+            <svg class="w-5 h-5 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7"></path></svg>
+        </div>
+    </section>
+
+    <section id="about" class="min-h-screen py-12 sm:py-16 px-4 sm:px-6 max-w-6xl mx-auto flex flex-col justify-center border-b-2 border-darkText relative">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="bg-warmPink border-2 border-darkText rounded-lg px-3 py-1 font-mono text-xs sm:text-sm font-bold paper-shadow-sm">PAGE 02</span>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-art text-darkText">关于我 / About Me</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div class="lg:col-span-5 bg-paper p-5 sm:p-6 border-2 border-darkText rounded-3xl paper-shadow relative flex flex-col justify-between items-center h-full">
+                <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 rotate-[-2deg] z-20"></div>
+
+                <div class="relative w-full aspect-[4/5] sm:h-[380px] lg:h-[410px] rounded-2xl border-2 border-darkText overflow-hidden bg-cream mb-4">
+                    <img src="https://i.postimg.cc/8kq5qWM8/a774b5d2dcb57e24fc9f00f9390614b5.jpg" alt="鲍泳希 个人照片" class="w-full h-full object-cover polaroid-img hover:scale-105 transition duration-500">
+                </div>
+
+                <div class="w-full text-center mt-auto">
+                    <h3 class="text-2xl sm:text-3xl font-art text-darkText">鲍泳希 <span class="text-lg font-hand text-sketchGray">(Bao Yongxi)</span></h3>
+                    <p class="font-art text-base sm:text-lg text-sketchGray mt-1 tracking-wide">戏剧影视美术设计专业</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 flex flex-col space-y-4 justify-between">
+                <div class="bg-cream p-4 sm:p-5 border-2 border-darkText rounded-3xl paper-shadow relative">
+                    <div class="flex items-center justify-between mb-2.5 border-b-2 border-dashed border-darkText/30 pb-2.5">
+                        <span class="bg-vibrantOrange text-darkText font-art text-lg sm:text-xl px-3 py-0.5 rounded-full border border-darkText paper-shadow-sm">
+                            ✨ 综合能力概括
+                        </span>
+                        <span class="font-mono text-[11px] sm:text-xs text-sketchGray font-bold uppercase">// Full-stack Capability</span>
+                    </div>
+
+                    <p class="text-sm sm:text-base leading-relaxed text-darkText font-medium mt-1.5">
+                        具备<span class="highlight-sketch font-bold text-darkText">“内容运营 + 活动策划 + 视觉设计”</span>全案执行能力，能独立完成从线上内容输出、线下活动落地到视觉物料支持的全流程工作，兼具统筹执行与数据复盘意识。
+                    </p>
+
+                    <div class="mt-4 pt-3.5 border-t-2 border-dashed border-darkText/30">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-art text-lg sm:text-xl text-darkText flex items-center gap-1.5">
+                                💼 工作经历 / Experience
+                            </h4>
+                            <span class="bg-warmPink/80 border border-darkText text-[11px] font-mono font-bold px-2 py-0.5 rounded-full">公共文化场馆实务</span>
+                        </div>
+                        <div class="bg-paper border border-darkText p-3 sm:p-3.5 rounded-2xl">
+                            <div class="flex flex-wrap items-baseline justify-between gap-1 mb-2 pb-1.5 border-b border-darkText/20">
+                                <span class="font-art text-lg text-darkText">宝安图书馆新安街道分馆</span>
+                                <span class="bg-vibrantOrange/40 border border-darkText text-[11px] px-2 py-0.5 rounded-md font-mono font-bold text-darkText">助理馆员</span>
+                            </div>
+                            <ul class="space-y-1.5 text-xs sm:text-sm text-darkText/90 font-medium">
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-vibrantOrange font-bold mt-0.5">✦</span>
+                                    <span><strong class="text-darkText font-bold">读者活动运营：</strong>策划、落地图书馆面向读者的各类线下公共文化活动，统筹活动全流程执行。</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-vibrantOrange font-bold mt-0.5">✦</span>
+                                    <span><strong class="text-darkText font-bold">场馆环境与视觉环创设计：</strong>负责馆内空间布置、环境美化、视觉相关设计落地。</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-vibrantOrange font-bold mt-0.5">✦</span>
+                                    <span><strong class="text-darkText font-bold">新媒体与内容产出：</strong>图书馆内容生产，适配新媒体运营工作，产出宣传类内容。</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-vibrantOrange font-bold mt-0.5">✦</span>
+                                    <span><strong class="text-darkText font-bold">策展相关实务：</strong>参与馆内展览相关的策展落地工作。</span>
+                                </li>
+                                <li class="flex items-start gap-1.5">
+                                    <span class="text-vibrantOrange font-bold mt-0.5">✦</span>
+                                    <span><strong class="text-darkText font-bold">基础图书馆业务：</strong>接触读者服务、图书馆公共服务相关业务，熟悉图书馆体制内文书、公告标语、读者证、通借通还等业务场景。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="bg-paper p-3.5 sm:p-4 border-2 border-darkText rounded-2xl paper-shadow-sm">
+                        <h4 class="font-hand text-lg font-bold flex items-center gap-1.5 mb-2">
+                            <i data-lucide="pen-tool" class="w-4 h-4 text-darkText"></i> 专业技能 (Tools)
+                        </h4>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-semibold">
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">Photoshop</span>
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">Illustrator</span>
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">3D MAX</span>
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">SketchUp</span>
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">AutoCAD</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-softGreen/20 p-3.5 sm:p-4 border-2 border-darkText rounded-2xl paper-shadow-sm">
+                        <h4 class="font-hand text-lg font-bold flex items-center gap-1.5 mb-2">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-darkText"></i> AI 探索 (AI Tools)
+                        </h4>
+                        <div class="flex flex-wrap gap-1.5 text-xs font-semibold">
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">ChatGPT</span>
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">DeepSeek</span>
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">Gemini</span>
+                            <span class="bg-cream border border-darkText px-2 py-0.5 rounded-lg">Canva</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="map" class="min-h-screen py-20 px-6 max-w-6xl mx-auto flex flex-col justify-center border-b-2 border-darkText relative">
+        <div class="flex items-center gap-3 mb-6">
+            <span class="bg-softGreen border-2 border-darkText rounded-lg px-3 py-1 font-mono text-sm font-bold paper-shadow-sm">PAGE 03</span>
+            <h2 class="text-4xl sm:text-5xl font-art text-darkText">我的作品 WORKS</h2>
+        </div>
+
+        <p class="font-art text-xl sm:text-2xl text-sketchGray mb-12">点击下方专项板块即可查看对应作品</p>
+
+        <div class="relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <a href="#p1" class="group relative z-10 bg-warmPink/40 border-2 border-darkText p-6 rounded-3xl paper-shadow hover:-translate-y-2 hover:bg-warmPink transition-all duration-300">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-3xl font-black text-darkText">01</span>
+                    <span class="bg-cream border border-darkText px-3 py-1 rounded-full font-hand text-lg font-bold">Brand Visual</span>
+                </div>
+                <h3 class="text-2xl font-art text-darkText mb-3 group-hover:underline">品牌视觉设计</h3>
+                <ul class="grid grid-cols-3 gap-2 font-medium text-darkText/80 text-sm sm:text-base">
+                    <li class="flex items-center gap-1">✦ LOGO设计</li>
+                    <li class="flex items-center gap-1">✦ IP设计</li>
+                    <li class="flex items-center gap-1">✦ 文创设计</li>
+                </ul>
+                <div class="mt-6 font-art text-sm sm:text-base font-bold text-darkText flex items-center justify-end gap-1">
+                    点击查看作品 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+
+            <a href="#p2" class="group relative z-10 bg-softGreen/40 border-2 border-darkText p-6 rounded-3xl paper-shadow hover:-translate-y-2 hover:bg-softGreen transition-all duration-300">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-3xl font-black text-darkText">02</span>
+                    <span class="bg-cream border border-darkText px-3 py-1 rounded-full font-hand text-lg font-bold">Spatial Design</span>
+                </div>
+                <h3 class="text-2xl font-art text-darkText mb-3 group-hover:underline">空间与导视设计</h3>
+                <ul class="grid grid-cols-3 gap-2 font-medium text-darkText/80 text-sm sm:text-base">
+                    <li class="flex items-center gap-1">✦ 图书馆导视</li>
+                    <li class="flex items-center gap-1">✦ 互动打卡墙</li>
+                    <li class="flex items-center gap-1">✦ 区域环境</li>
+                </ul>
+                <div class="mt-6 font-art text-sm sm:text-base font-bold text-darkText flex items-center justify-end gap-1">
+                    点击查看作品 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+
+            <a href="#p3" class="group relative z-10 bg-babyBlue/40 border-2 border-darkText p-6 rounded-3xl paper-shadow hover:-translate-y-2 hover:bg-babyBlue transition-all duration-300">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-3xl font-black text-darkText">03</span>
+                    <span class="bg-cream border border-darkText px-3 py-1 rounded-full font-hand text-lg font-bold">Graphic Design</span>
+                </div>
+                <h3 class="text-2xl font-art text-darkText mb-3 group-hover:underline">宣传物料设计</h3>
+                <ul class="grid grid-cols-2 gap-2 font-medium text-darkText/80 text-sm sm:text-base">
+                    <li class="flex items-center gap-1">✦ 海报设计</li>
+                    <li class="flex items-center gap-1">✦ 展板设计</li>
+                </ul>
+                <div class="mt-6 font-art text-sm sm:text-base font-bold text-darkText flex items-center justify-end gap-1">
+                    点击查看作品 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+
+            <a href="#p4" class="group relative z-10 bg-vibrantOrange/40 border-2 border-darkText p-6 rounded-3xl paper-shadow hover:-translate-y-2 hover:bg-vibrantOrange transition-all duration-300">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="font-mono text-3xl font-black text-darkText">04</span>
+                    <span class="bg-cream border border-darkText px-3 py-1 rounded-full font-hand text-lg font-bold">Digital Media</span>
+                </div>
+                <h3 class="text-2xl font-art text-darkText mb-3 group-hover:underline">新媒体运营</h3>
+                <ul class="grid grid-cols-2 gap-2 font-medium text-darkText/80 text-sm sm:text-base">
+                    <li class="flex items-center gap-1">✦ 公众号推文</li>
+                    <li class="flex items-center gap-1">✦ 新闻稿排版</li>
+                </ul>
+                <div class="mt-6 font-art text-sm sm:text-base font-bold text-darkText flex items-center justify-end gap-1">
+                    点击查看作品 <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </div>
+            </a>
+        </div>
+
+        <svg class="w-full h-4 pointer-events-none my-4 opacity-70" viewBox="0 0 1000 20" fill="none" stroke="#2B2520" stroke-width="2.5" stroke-dasharray="8 8">
+            <line x1="0" y1="10" x2="1000" y2="10" />
+        </svg>
+    </section>
+
+    <section id="p1" class="min-h-screen py-20 px-6 max-w-6xl mx-auto border-b-2 border-darkText">
+        <div class="bg-paper border-2 border-darkText rounded-3xl p-6 sm:p-10 paper-shadow relative overflow-hidden">
+            <div class="tape absolute -top-4 left-10 w-36 h-8 rotate-[1deg] z-20"></div>
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                    <h2 class="text-3xl sm:text-4xl font-art text-darkText mt-1">01 品牌视觉设计 Brand Visual Design</h2>
+                </div>
+            </div>
+
+            <div class="bg-cream p-5 rounded-2xl border-2 border-darkText mb-8">
+                <p class="text-base sm:text-lg text-darkText leading-relaxed">
+                    围绕运动主题，以<span class="font-bold text-darkText">奥运五环</span>作为视觉灵感起源，建立完整的品牌视觉系统。
+                    独立设计亲民、有亲和力的IP吉祥物形象，并延伸丰富的文创周边衍生品。
+                </p>
+            </div>
+
+            <div class="relative py-6 my-4 flex flex-col items-center justify-center">
+                <div class="flex items-center justify-between w-full max-w-xs mb-4 z-30">
+                    <button onclick="move3DCarousel(-1)" class="bg-warmPink hover:bg-vibrantOrange border-2 border-darkText p-2 rounded-full paper-shadow-sm transition transform active:scale-95">
+                        <i data-lucide="chevron-left" class="w-6 h-6 text-darkText"></i>
+                    </button>
+                    <span class="font-hand text-xl font-bold text-darkText" id="carouselCounter">1 / 6</span>
+                    <button onclick="move3DCarousel(1)" class="bg-warmPink hover:bg-vibrantOrange border-2 border-darkText p-2 rounded-full paper-shadow-sm transition transform active:scale-95">
+                        <i data-lucide="chevron-right" class="w-6 h-6 text-darkText"></i>
+                    </button>
+                </div>
+
+                <div class="relative w-full h-[400px] flex items-center justify-center overflow-visible" style="perspective: 1000px;">
+                    <div onclick="set3DCarousel(0)" class="coverflow-slide absolute top-0 w-72 sm:w-80 bg-cream border-3 border-darkText p-4 rounded-3xl paper-shadow transition-all duration-500 ease-out cursor-pointer flex flex-col justify-between h-[360px]">
+                        <div class="h-48 bg-white rounded-2xl overflow-hidden border-2 border-darkText flex items-center justify-center p-2">
+                            <img src="https://i.postimg.cc/Tw8xk8pW/logo10(wu-zi).png" alt="LOGO设计" class="w-full h-full object-contain">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <h4 class="font-art text-2xl text-darkText">LOGO设计</h4>
+                            <p class="text-xs text-sketchGray mt-1 leading-snug">以奥运五环为灵感、奥运五色为主色，结合书本构成具有主题特色LOGO。</p>
+                        </div>
+                    </div>
+
+                    <div onclick="set3DCarousel(1)" class="coverflow-slide absolute top-0 w-72 sm:w-80 bg-cream border-3 border-darkText p-4 rounded-3xl paper-shadow transition-all duration-500 ease-out cursor-pointer flex flex-col justify-between h-[360px]">
+                        <div class="h-48 bg-softGreen/30 rounded-2xl overflow-hidden border-2 border-darkText flex items-center justify-center p-2">
+                            <img src="https://i.postimg.cc/htg75w7v/6xiao-qiu.png" alt="IP设计" class="w-full h-full object-contain">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <h4 class="font-art text-2xl text-darkText">IP设计</h4>
+                            <p class="text-xs text-sketchGray mt-1 leading-snug">以运动元素和亲和力为主，设计IP形象。</p>
+                        </div>
+                    </div>
+
+                    <div onclick="set3DCarousel(2)" class="coverflow-slide absolute top-0 w-72 sm:w-80 bg-cream border-3 border-darkText p-4 rounded-3xl paper-shadow transition-all duration-500 ease-out cursor-pointer flex flex-col justify-between h-[360px]">
+                        <div class="h-48 bg-babyBlue/30 rounded-2xl overflow-hidden border-2 border-darkText flex items-center justify-center p-2">
+                            <img src="https://i.postimg.cc/44jczPv5/bing-xiang-tie.png" alt="文创周边-冰箱贴" class="w-full h-full object-contain">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <h4 class="font-art text-2xl text-darkText">文创周边-冰箱贴</h4>
+                            <p class="text-xs text-sketchGray mt-1 leading-snug">精致实效的运动主题创意磁吸冰箱贴。</p>
+                        </div>
+                    </div>
+
+                    <div onclick="set3DCarousel(3)" class="coverflow-slide absolute top-0 w-72 sm:w-80 bg-cream border-3 border-darkText p-4 rounded-3xl paper-shadow transition-all duration-500 ease-out cursor-pointer flex flex-col justify-between h-[360px]">
+                        <div class="h-48 bg-vibrantOrange/30 rounded-2xl overflow-hidden border-2 border-darkText flex items-center justify-center p-2">
+                            <img src="https://i.postimg.cc/5tj9Kdbg/yao-shi-kou.png" alt="文创周边-钥匙扣" class="w-full h-full object-contain">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <h4 class="font-art text-2xl text-darkText">文创周边-钥匙扣</h4>
+                            <p class="text-xs text-sketchGray mt-1 leading-snug">亚克力多层与立体烤漆工艺卡扣钥匙挂件。</p>
+                        </div>
+                    </div>
+
+                    <div onclick="set3DCarousel(4)" class="coverflow-slide absolute top-0 w-72 sm:w-80 bg-cream border-3 border-darkText p-4 rounded-3xl paper-shadow transition-all duration-500 ease-out cursor-pointer flex flex-col justify-between h-[360px]">
+                        <div class="h-48 bg-warmPink/30 rounded-2xl overflow-hidden border-2 border-darkText flex items-center justify-center p-2">
+                            <img src="https://i.postimg.cc/Mp9VjS9Q/hui-zhang.png" alt="文创周边-徽章" class="w-full h-full object-contain">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <h4 class="font-art text-2xl text-darkText">文创周边-徽章</h4>
+                            <p class="text-xs text-sketchGray mt-1 leading-snug">奥运运动风金属及哑光质感纪念徽章。</p>
+                        </div>
+                    </div>
+
+                    <div onclick="set3DCarousel(5)" class="coverflow-slide absolute top-0 w-72 sm:w-80 bg-cream border-3 border-darkText p-4 rounded-3xl paper-shadow transition-all duration-500 ease-out cursor-pointer flex flex-col justify-between h-[360px]">
+                        <div class="h-48 bg-paper rounded-2xl overflow-hidden border-2 border-darkText flex items-center justify-center p-2">
+                            <img src="https://i.postimg.cc/5NxX5rYw/wen-chuang-bao.png" alt="文创周边-挎包" class="w-full h-full object-contain">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <h4 class="font-art text-2xl text-darkText">文创周边-挎包</h4>
+                            <p class="text-xs text-sketchGray mt-1 leading-snug">将实用理念与品牌视觉印花结合的帆布挎包。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 mt-4 z-30">
+                    <button onclick="set3DCarousel(0)" class="carousel-dot w-3 h-3 rounded-full border border-darkText bg-darkText transition"></button>
+                    <button onclick="set3DCarousel(1)" class="carousel-dot w-3 h-3 rounded-full border border-darkText bg-cream transition"></button>
+                    <button onclick="set3DCarousel(2)" class="carousel-dot w-3 h-3 rounded-full border border-darkText bg-cream transition"></button>
+                    <button onclick="set3DCarousel(3)" class="carousel-dot w-3 h-3 rounded-full border border-darkText bg-cream transition"></button>
+                    <button onclick="set3DCarousel(4)" class="carousel-dot w-3 h-3 rounded-full border border-darkText bg-cream transition"></button>
+                    <button onclick="set3DCarousel(5)" class="carousel-dot w-3 h-3 rounded-full border border-darkText bg-cream transition"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="p2" class="min-h-screen py-20 px-6 max-w-6xl mx-auto border-b-2 border-darkText">
+        <div class="bg-paper border-2 border-darkText rounded-3xl p-6 sm:p-10 paper-shadow relative overflow-hidden">
+            <div class="tape absolute -top-4 right-12 w-36 h-8 rotate-[-2deg] z-20"></div>
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                    <span class="bg-softGreen border border-darkText px-3 py-1 rounded-full font-hand text-lg font-bold">Spatial & Signage</span>
+                    <h2 class="text-3xl sm:text-4xl font-art text-darkText mt-2">02 空间与导视设计 Space & Signage Design</h2>
+                </div>
+            </div>
+
+            <div class="bg-cream p-5 rounded-2xl border-2 border-darkText mb-8">
+                <p class="text-base sm:text-lg text-darkText leading-relaxed font-medium">
+                    立足公共文化与教育阅读场景，将<span class="highlight-sketch font-bold text-darkText">人因导视逻辑</span>与<span class="highlight-sketch font-bold text-darkText">馆内特色主题</span>深度结合。点击下方三个专案板块展开具体细节。
+                </p>
+            </div>
+
+            <div class="space-y-5">
+                <!-- Block 1: 图书馆导视设计 -->
+                <div class="border-2 border-darkText rounded-2xl bg-cream overflow-hidden paper-shadow-sm transition-all duration-300">
+                    <button onclick="toggleP2Block('block1')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-softGreen/20 transition cursor-pointer">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <span class="bg-softGreen border-2 border-darkText font-mono font-black text-2xl sm:text-3xl w-10 h-10 sm:w-12 sm:h-12 rounded-2xl text-darkText flex items-center justify-center shrink-0 paper-shadow-sm">①</span>
+                            <div>
+                                <h3 class="font-art text-2xl sm:text-3xl text-darkText">图书馆导视设计</h3>
+                                <p class="text-xs sm:text-sm text-sketchGray font-medium mt-0.5">全馆标识标牌、功能指引</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-hand font-bold text-sketchGray hidden sm:inline">点击展开/收起细节</span>
+                            <div id="chevron-block1" class="w-8 h-8 rounded-full border border-darkText bg-cream flex items-center justify-center transition-transform duration-300 rotate-180">
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-darkText"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="content-block1" class="p-5 border-t-2 border-dashed border-darkText/30 bg-paper transition-all duration-300">
+                        <p class="text-sm sm:text-base text-darkText/90 leading-relaxed font-medium mb-4">
+                            独立完成标识标牌设计、选材定价、制作确认、安装监督全过程。
+                        </p>
+
+                        <div class="relative my-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-hand text-base font-bold text-sketchGray">← 左右滑动浏览全套标牌图纸与现场图（点击可放大） →</span>
+                            </div>
+                            <div class="flex gap-4 overflow-x-auto pb-4 snap-x scrollbar-thin">
+                                <div onclick="openImageModal('https://i.postimg.cc/13RqJ9B7/xin-an-zong-lan-tu.png', '场馆区域总览图')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/13RqJ9B7/xin-an-zong-lan-tu.png" alt="场馆区域总览图" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">场馆区域总览图</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/fRFRmZrb/xu-zhi.png', '场馆须知')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/fRFRmZrb/xu-zhi.png" alt="场馆须知" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">场馆须知</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/YS6B0HcJ/be96e869c7ab2f19b848a3dd888788c7.jpg', '场馆须知-现场照片')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/YS6B0HcJ/be96e869c7ab2f19b848a3dd888788c7.jpg" alt="场馆须知-现场照片" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">场馆须知-现场照片</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/4NYCttk2/shao-er-yue-lan-qu.png', '区域指引标识（部分）')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/4NYCttk2/shao-er-yue-lan-qu.png" alt="区域指引标识（部分）" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">区域指引标识（部分）</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/bJyWvS96/828e5ca0f477bf34bb93a98e6e5d84d3.jpg', '区域指引标识（部分）-现场照片')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/bJyWvS96/828e5ca0f477bf34bb93a98e6e5d84d3.jpg" alt="区域指引标识（部分）-现场照片" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">区域指引标识-现场照片</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/13KL1KpZ/shao-er-qu-zhan-shi-qu.png', '特别区域标识及现场照片')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/13KL1KpZ/shao-er-qu-zhan-shi-qu.png" alt="特别区域标识及现场照片" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">特别区域标识及现场照片</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/NjRz7kNH/zhong-wen-shu-jia-ce-biao.png', '书架侧标')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/NjRz7kNH/zhong-wen-shu-jia-ce-biao.png" alt="书架侧标" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">书架侧标</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/t4GrTVX6/6f4bc67494cbf844be3c5f86045dce99.jpg', '书架侧标-现场照片')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/t4GrTVX6/6f4bc67494cbf844be3c5f86045dce99.jpg" alt="书架侧标-现场照片" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">书架侧标-现场照片</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/TPCQC7n3/zhuan-jia-biao-pai-he-ji.png', '专题书架标识')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/TPCQC7n3/zhuan-jia-biao-pai-he-ji.png" alt="专题书架标识" class="w-full h-full object-contain">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">专题书架标识</p>
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/grFKnfbs/a5301b38a644254aeedd5afdc2ed8fd2.jpg', '专题书架标识-现场照片')" class="flex-none w-64 sm:w-72 bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm snap-start cursor-pointer hover:scale-105 transition-transform">
+                                    <div class="h-44 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                        <img src="https://i.postimg.cc/grFKnfbs/a5301b38a644254aeedd5afdc2ed8fd2.jpg" alt="专题书架标识-现场照片" class="w-full h-full object-cover">
+                                    </div>
+                                    <div class="mt-2.5 text-center">
+                                        <p class="font-art text-base text-darkText font-bold">专题书架标识-现场照片</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 2: 互动打卡墙设计 -->
+                <div class="border-2 border-darkText rounded-2xl bg-cream overflow-hidden paper-shadow-sm transition-all duration-300">
+                    <button onclick="toggleP2Block('block2')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-vibrantOrange/20 transition cursor-pointer">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <span class="bg-vibrantOrange border-2 border-darkText font-mono font-black text-2xl sm:text-3xl w-10 h-10 sm:w-12 sm:h-12 rounded-2xl text-darkText flex items-center justify-center shrink-0 paper-shadow-sm">②</span>
+                            <div>
+                                <h3 class="font-art text-2xl sm:text-3xl text-darkText">互动打卡墙设计</h3>
+                                <p class="text-xs sm:text-sm text-sketchGray font-medium mt-0.5">读者沉浸式交互区域</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-hand font-bold text-sketchGray hidden sm:inline">点击展开/收起细节</span>
+                            <div id="chevron-block2" class="w-8 h-8 rounded-full border border-darkText bg-cream flex items-center justify-center transition-transform duration-300">
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-darkText"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="content-block2" class="p-5 border-t-2 border-dashed border-darkText/30 bg-paper hidden transition-all duration-300">
+                        <p class="text-sm sm:text-base text-darkText/90 leading-relaxed font-medium mb-4">
+                            独立设计图书馆互动打卡区域，完成线上定制沟通及现场安装。
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                            <div onclick="openImageModal('https://i.postimg.cc/8PfpGx5z/e3b3ae0b7b393775adedf81560e7bd75.jpg', '互动打卡墙 - 设计平面图')" class="bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm cursor-pointer hover:scale-[1.02] transition-transform">
+                                <div class="h-52 sm:h-60 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                    <img src="https://i.postimg.cc/8PfpGx5z/e3b3ae0b7b393775adedf81560e7bd75.jpg" alt="设计平面图" class="w-full h-full object-contain">
+                                </div>
+                                <div class="mt-2.5 text-center">
+                                    <p class="font-art text-base text-darkText font-bold">设计平面图</p>
+                                </div>
+                            </div>
+
+                            <div onclick="openImageModal('https://i.postimg.cc/vmbbWBvV/bbf470f47e96fad58cf6bdcdbca68c85.jpg', '互动打卡墙 - 现场照片')" class="bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm cursor-pointer hover:scale-[1.02] transition-transform">
+                                <div class="h-52 sm:h-60 bg-white rounded-xl overflow-hidden border border-darkText flex items-center justify-center p-1">
+                                    <img src="https://i.postimg.cc/vmbbWBvV/bbf470f47e96fad58cf6bdcdbca68c85.jpg" alt="现场照片" class="w-full h-full object-cover">
+                                </div>
+                                <div class="mt-2.5 text-center">
+                                    <p class="font-art text-base text-darkText font-bold">现场照片</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 3: 区域环境设计 -->
+                <div class="border-2 border-darkText rounded-2xl bg-cream overflow-hidden paper-shadow-sm transition-all duration-300">
+                    <button onclick="toggleP2Block('block3')" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-babyBlue/30 transition cursor-pointer">
+                        <div class="flex items-center gap-3 sm:gap-4">
+                            <span class="bg-babyBlue border-2 border-darkText font-mono font-black text-2xl sm:text-3xl w-10 h-10 sm:w-12 sm:h-12 rounded-2xl text-darkText flex items-center justify-center shrink-0 paper-shadow-sm">③</span>
+                            <div>
+                                <h3 class="font-art text-2xl sm:text-3xl text-darkText">区域环境设计</h3>
+                                <p class="text-xs sm:text-sm text-sketchGray font-medium mt-0.5">场馆环境美化</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs font-hand font-bold text-sketchGray hidden sm:inline">点击展开/收起细节</span>
+                            <div id="chevron-block3" class="w-8 h-8 rounded-full border border-darkText bg-cream flex items-center justify-center transition-transform duration-300">
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-darkText"></i>
+                            </div>
+                        </div>
+                    </button>
+
+                    <div id="content-block3" class="p-5 border-t-2 border-dashed border-darkText/30 bg-paper hidden transition-all duration-300">
+                        <p class="text-sm sm:text-base text-darkText/90 leading-relaxed font-medium mb-4">
+                            完成馆内空间装饰从概念构思、SketchUp / 3D MAX 3D建模、材质落地到安装监督的全过程。
+                        </p>
+
+                        <div class="my-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div onclick="openImageModal('https://i.postimg.cc/hjns4FgV/95bb9941ec58f2089b0a3d619e7a87d1.jpg', '区域环境设计 - 3D建模效果')" class="bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm cursor-pointer">
+                                    <div class="h-64 sm:h-80 overflow-y-auto rounded-xl border-2 border-darkText bg-white p-2 scrollbar-thin">
+                                        <img src="https://i.postimg.cc/hjns4FgV/95bb9941ec58f2089b0a3d619e7a87d1.jpg" alt="3D建模效果" class="w-full h-auto object-contain">
+                                    </div>
+                                </div>
+
+                                <div onclick="openImageModal('https://i.postimg.cc/pVqCv17H/da50622918db18d51eb8d15dbab4ea19.jpg', '区域环境设计 - 现场照片')" class="bg-cream border-2 border-darkText rounded-2xl p-3 paper-shadow-sm cursor-pointer">
+                                    <div class="h-64 sm:h-80 overflow-y-auto rounded-xl border-2 border-darkText bg-white p-2 scrollbar-thin">
+                                        <img src="https://i.postimg.cc/pVqCv17H/da50622918db18d51eb8d15dbab4ea19.jpg" alt="现场照片" class="w-full h-auto object-cover">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4 flex flex-col items-center justify-center gap-1">
+                                <div class="inline-flex items-center justify-center bg-cream border-2 border-darkText px-5 py-2 rounded-2xl paper-shadow-sm font-art text-lg sm:text-xl text-darkText">
+                                    <span>3D建模效果、现场照片</span>
+                                </div>
+                                <span class="font-hand text-xs font-bold text-sketchGray">点击图片放大，或在框内上下滑动 ↕</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="p3" class="min-h-screen py-20 px-6 max-w-6xl mx-auto border-b-2 border-darkText">
+        <div class="bg-paper border-2 border-darkText rounded-3xl p-6 sm:p-10 paper-shadow relative overflow-hidden">
+            <div class="tape absolute -top-4 left-1/3 w-36 h-8 rotate-[-1deg] z-20"></div>
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                    <span class="bg-babyBlue border border-darkText px-3 py-1 rounded-full font-hand text-lg font-bold">Posters & Exhibitions</span>
+                    <h2 class="text-3xl sm:text-4xl font-art text-darkText mt-2">03 宣传物料设计 Material Design</h2>
+                </div>
+            </div>
+
+            <div class="bg-cream p-5 rounded-2xl border-2 border-darkText mb-10">
+                <p class="text-base sm:text-lg text-darkText leading-relaxed font-medium">
+                    聚焦公共文化传播与活动策划宣发，涵盖<span class="highlight-sketch font-bold text-darkText">主题海报</span>与<span class="highlight-sketch font-bold text-darkText">线下展板设计</span>。
+                </p>
+            </div>
+
+            <!-- FOLDER 1: 海报设计 -->
+            <div class="mb-10">
+                <button onclick="toggleP3Folder('poster')" class="w-full flex items-center justify-between bg-warmPink/80 border-2 border-darkText px-6 py-3 rounded-2xl paper-shadow-sm font-art text-xl text-darkText cursor-pointer hover:bg-warmPink transition">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="folder-open" class="w-6 h-6"></i>
+                        海报设计 / Poster Design
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-hand font-bold text-darkText/80 hidden sm:inline">点击展开/收起</span>
+                        <div id="chevron-poster" class="w-7 h-7 rounded-full border border-darkText bg-cream flex items-center justify-center transition-transform duration-300 rotate-180">
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-darkText"></i>
+                        </div>
+                    </div>
+                </button>
+
+                <div id="content-poster" class="mt-3 bg-cream/90 border-2 border-darkText rounded-3xl p-6 sm:p-8 paper-shadow relative transition-all duration-300">
+                    <p class="font-hand text-sm sm:text-base text-sketchGray mb-6 flex items-center gap-2">
+                        <span>✨ 点击卡片可放大查看高清图纸</span>
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 py-4">
+                        <div onclick="openImageModal('https://i.postimg.cc/05nMrzpg/da-men-zhi-shi-pai.jpg', '大门指示牌海报')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-44 sm:w-52 h-64 rotate-[-4deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[2deg] z-20"></div>
+                            <div class="w-full h-48 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/05nMrzpg/da-men-zhi-shi-pai.jpg" alt="大门指示牌海报" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">大门指示牌海报</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/rwBz7xLz/5yue-tu-jie-hai-bao-(.jpg', '图图姐姐讲故事')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-48 sm:w-56 h-72 rotate-[5deg] -translate-y-2">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[-3deg] z-20"></div>
+                            <div class="w-full h-56 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/rwBz7xLz/5yue-tu-jie-hai-bao-(.jpg" alt="图图姐姐讲故事" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">图图姐姐讲故事</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/pTxrLvrR/dian-ying-hai-bao.jpg', '电影活动海报')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-44 sm:w-52 h-68 rotate-[-3deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[1deg] z-20"></div>
+                            <div class="w-full h-52 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/pTxrLvrR/dian-ying-hai-bao.jpg" alt="电影活动海报" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">电影活动海报</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/8czCLbL9/liu-yi-zong-hai-bao.jpg', '六一活动总海报')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-48 sm:w-56 h-72 rotate-[6deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[-2deg] z-20"></div>
+                            <div class="w-full h-56 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/8czCLbL9/liu-yi-zong-hai-bao.jpg" alt="六一活动总海报" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">六一活动总海报</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/vmwH0yW4/5yue-di-si-zhou-huo-dong-xuan-chuan.jpg', '活动宣传海报')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-44 sm:w-52 h-64 rotate-[-5deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[4deg] z-20"></div>
+                            <div class="w-full h-48 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/vmwH0yW4/5yue-di-si-zhou-huo-dong-xuan-chuan.jpg" alt="活动宣传海报" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">活动宣传海报</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/sfLznyrL/0869de8b530b7d14160a678c99c0f1c6.jpg', '共读企划海报')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-44 sm:w-52 h-68 rotate-[-2deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[3deg] z-20"></div>
+                            <div class="w-full h-52 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/sfLznyrL/0869de8b530b7d14160a678c99c0f1c6.jpg" alt="共读企划海报" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">共读企划海报</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FOLDER 2: 展板设计 -->
+            <div>
+                <button onclick="toggleP3Folder('board')" class="w-full flex items-center justify-between bg-softGreen/80 border-2 border-darkText px-6 py-3 rounded-2xl paper-shadow-sm font-art text-xl text-darkText cursor-pointer hover:bg-softGreen transition">
+                    <span class="flex items-center gap-2">
+                        <i data-lucide="folder-open" class="w-6 h-6"></i>
+                        展板设计 / Display Board Design
+                    </span>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-hand font-bold text-darkText/80 hidden sm:inline">点击展开/收起</span>
+                        <div id="chevron-board" class="w-7 h-7 rounded-full border border-darkText bg-cream flex items-center justify-center transition-transform duration-300 rotate-180">
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-darkText"></i>
+                        </div>
+                    </div>
+                </button>
+
+                <div id="content-board" class="mt-3 bg-cream/90 border-2 border-darkText rounded-3xl p-6 sm:p-8 paper-shadow relative transition-all duration-300">
+                    <p class="font-hand text-sm sm:text-base text-sketchGray mb-6 flex items-center gap-2">
+                        <span>✨ 点击卡片可放大查看高清图纸</span>
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-8 py-4">
+                        <div onclick="openImageModal('https://i.postimg.cc/P5sjj4NS/2ec301519f4319424ad6834bf7fe99f1.jpg', '主题展板设计 01')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-48 sm:w-56 h-68 rotate-[4deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[-2deg] z-20"></div>
+                            <div class="w-full h-52 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/P5sjj4NS/2ec301519f4319424ad6834bf7fe99f1.jpg" alt="主题展板设计 01" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">主题展板设计 01</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/JhRCyzNd/adcef59920f285169ecd3162dde5104f.jpg', '主题展板设计 02')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-44 sm:w-52 h-64 rotate-[-5deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[3deg] z-20"></div>
+                            <div class="w-full h-48 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/JhRCyzNd/adcef59920f285169ecd3162dde5104f.jpg" alt="主题展板设计 02" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">主题展板设计 02</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/rmYBYGvt/5d67b05c81be7b04745e735c90de2b88.jpg', '主题展板设计 03')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-48 sm:w-56 h-72 rotate-[3deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[-1deg] z-20"></div>
+                            <div class="w-full h-56 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/rmYBYGvt/5d67b05c81be7b04745e735c90de2b88.jpg" alt="主题展板设计 03" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">主题展板设计 03</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/j2pGRxqR/81dd88ee62be44a5a04bba0bb0889fc4.jpg', '主题展板设计 04')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-44 sm:w-52 h-64 rotate-[-3deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[4deg] z-20"></div>
+                            <div class="w-full h-48 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/j2pGRxqR/81dd88ee62be44a5a04bba0bb0889fc4.jpg" alt="主题展板设计 04" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">主题展板设计 04</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/DfRZS18x/378b5b2a7730a8c089c72e90506af9d1.jpg', '主题展板设计 05')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-48 sm:w-56 h-70 rotate-[5deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[-3deg] z-20"></div>
+                            <div class="w-full h-52 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/DfRZS18x/378b5b2a7730a8c089c72e90506af9d1.jpg" alt="主题展板设计 05" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">主题展板设计 05</p>
+                        </div>
+
+                        <div onclick="openImageModal('https://i.postimg.cc/NfT0mLXw/88e54b09f846390f4b79f9de2dca8d1a.jpg', '主题展板设计 06')" 
+                             class="group relative bg-white border-2 border-darkText p-2.5 rounded-2xl paper-shadow-sm hover:scale-105 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-300 cursor-pointer w-44 sm:w-52 h-68 rotate-[-4deg]">
+                            <div class="tape absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-5 rotate-[2deg] z-20"></div>
+                            <div class="w-full h-52 rounded-xl overflow-hidden border border-darkText/30 bg-paper">
+                                <img src="https://i.postimg.cc/NfT0mLXw/88e54b09f846390f4b79f9de2dca8d1a.jpg" alt="主题展板设计 06" class="w-full h-full object-cover">
+                            </div>
+                            <p class="mt-2 text-center font-art text-sm text-darkText truncate">主题展板设计 06</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="p4" class="min-h-screen py-20 px-6 max-w-6xl mx-auto border-b-2 border-darkText">
+        <div class="bg-paper border-2 border-darkText rounded-3xl p-6 sm:p-10 paper-shadow relative overflow-hidden">
+            <div class="tape absolute -top-4 right-1/4 w-36 h-8 rotate-[2deg] z-20"></div>
+
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <div>
+                    <span class="bg-vibrantOrange border border-darkText px-3 py-1 rounded-full font-hand text-lg font-bold">New Media & Content Strategy</span>
+                    <h2 class="text-3xl sm:text-4xl font-art text-darkText mt-2">04 新媒体运营 Digital Media & Operations</h2>
+                </div>
+            </div>
+
+            <div class="bg-cream p-5 rounded-2xl border-2 border-darkText mb-8">
+                <p class="text-base sm:text-lg text-darkText leading-relaxed font-medium">
+                    深耕公共文化场馆新媒体阵地，负责<span class="highlight-sketch font-bold text-darkText">公众号图文选题策划</span>、<span class="highlight-sketch font-bold text-darkText">新闻文案撰写</span>与<span class="highlight-sketch font-bold text-darkText">视觉排版渲染</span>，实现线下活动与线上传播的无缝联动。
+                </p>
+            </div>
+
+            <!-- Grid Cards for Digital Media Capability -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                
+                <!-- New Media Item 1: 微信公众号图文策划 -->
+                <div class="bg-cream border-2 border-darkText p-5 sm:p-6 rounded-2xl paper-shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b-2 border-dashed border-darkText/20 pb-2">
+                            <span class="bg-warmPink border border-darkText text-xs font-bold font-mono px-2.5 py-0.5 rounded-full">WECHAT ARTICLES</span>
+                            <i data-lucide="newspaper" class="w-5 h-5 text-darkText"></i>
+                        </div>
+                        <h3 class="font-art text-2xl text-darkText mb-2">微信公众号图文排版与编辑</h3>
+                        <p class="text-sm text-darkText/80 font-medium leading-relaxed mb-3">
+                            负责宝安图书馆新安街道分馆公众号阅读推广推文活动招募文案。通过清晰的视觉层级、手绘风插图配图提升读者阅读留存率。
+                        </p>
+
+                        <!-- Long Image (Displayed at normal size) -->
+                        <div class="my-3 rounded-xl border-2 border-darkText bg-white overflow-hidden shadow-sm">
+                            <div class="p-2">
+                                <img src="https://i.postimg.cc/Bbs5xRvX/ecb4d93f5b5d50a523a75e4156431aeb.jpg" alt="公众号推文长图" class="w-full h-auto cursor-pointer" onclick="openImageModal('https://i.postimg.cc/Bbs5xRvX/ecb4d93f5b5d50a523a75e4156431aeb.jpg', '公众号推文长图')">
+                            </div>
+                        </div>
+
+                        <!-- Corresponding Article Link -->
+                        <a href="https://mp.weixin.qq.com/s/Dfe1SFIUiLOhw9bSSVteLA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-vibrantOrange hover:underline mb-4">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            查看微信公众号推文原文
+                        </a>
+                    </div>
+
+                    <div class="space-y-2 font-mono text-xs text-sketchGray border-t border-darkText/20 pt-3">
+                        <div class="flex items-center justify-between">
+                            <span>✦ 选题规划 / 文案撰写</span>
+                            <span class="text-darkText font-bold">100% 独立完成</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>✦ 排版美化 / 视觉封面</span>
+                            <span class="text-darkText font-bold">秀米</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Media Item 2: 活动新闻稿与宣传报道 -->
+                <div class="bg-cream border-2 border-darkText p-5 sm:p-6 rounded-2xl paper-shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3 border-b-2 border-dashed border-darkText/20 pb-2">
+                            <span class="bg-softGreen border border-darkText text-xs font-bold font-mono px-2.5 py-0.5 rounded-full">PRESS RELEASES</span>
+                            <i data-lucide="megaphone" class="w-5 h-5 text-darkText"></i>
+                        </div>
+                        <h3 class="font-art text-2xl text-darkText mb-2">活动新闻稿与宣传报道</h3>
+                        <p class="text-sm text-darkText/80 font-medium leading-relaxed mb-3">
+                            撰写公共文化活动新闻稿及馆内服务动态报道。兼顾体制内公文规范与面向公众的亲和传播表达。
+                        </p>
+
+                        <!-- News Image -->
+                        <div class="my-3 rounded-xl border-2 border-darkText bg-white overflow-hidden shadow-sm">
+                            <div class="p-2">
+                                <img src="https://i.postimg.cc/QtqhMWK8/761c4b03f504d828a8e9e6cfa3883d42.jpg" alt="新闻报道示例" class="w-full h-auto rounded-lg cursor-pointer" onclick="openImageModal('https://i.postimg.cc/QtqhMWK8/761c4b03f504d828a8e9e6cfa3883d42.jpg', '新闻报道示例')">
+                            </div>
+                        </div>
+
+                        <!-- Corresponding Article Link -->
+                        <a href="https://appdetail-v2.baoanone.com/content/2026-01/31/content_213702.html" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-softGreen hover:underline mb-4">
+                            <i data-lucide="external-link" class="w-4 h-4"></i>
+                            查看新闻报道原文
+                        </a>
+                    </div>
+
+                    <div class="space-y-2 font-mono text-xs text-sketchGray border-t border-darkText/20 pt-3">
+                        <div class="flex items-center justify-between">
+                            <span>✦ 稿件类型</span>
+                            <span class="text-darkText font-bold">活动速递 / 读者风采</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>✦ 宣发通道</span>
+                            <span class="text-darkText font-bold">总馆联播 / 街道专栏</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Highlight Metrics Banner -->
+            <div class="bg-vibrantOrange/20 border-2 border-darkText p-5 rounded-2xl flex flex-wrap items-center justify-around gap-4 text-center">
+                <div>
+                    <span class="font-mono text-3xl font-black text-darkText">30+</span>
+                    <p class="font-art text-sm text-sketchGray mt-0.5">原创活动推文产出</p>
+                </div>
+                <div class="h-8 w-0.5 bg-darkText/20 hidden sm:block"></div>
+                <div>
+                    <span class="font-mono text-3xl font-black text-darkText">98%</span>
+                    <p class="font-art text-sm text-sketchGray mt-0.5">线下活动现场上座率</p>
+                </div>
+                <div class="h-8 w-0.5 bg-darkText/20 hidden sm:block"></div>
+                <div>
+                    <span class="font-mono text-3xl font-black text-darkText">全案执行</span>
+                    <p class="font-art text-sm text-sketchGray mt-0.5">文案+视觉+现场闭环</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6 max-w-4xl mx-auto text-center flex flex-col items-center justify-center relative">
+        <div class="inline-block bg-warmPink border-2 border-darkText px-4 py-1.5 rounded-full font-hand text-xl font-bold mb-6 rotate-[-2deg] paper-shadow-sm">
+            ✨ Let's Work Together!
+        </div>
+
+        <h2 class="text-4xl sm:text-6xl font-art text-darkText leading-tight mb-8">
+            <span class="highlight-sketch">期待您的联系！</span>
+        </h2>
+
+        <div class="bg-cream border-3 border-darkText p-8 rounded-3xl paper-shadow w-full max-w-xl">
+            <h3 class="text-3xl font-art text-darkText mb-2">鲍泳希</h3>
+            <p class="font-hand text-xl text-sketchGray mb-6">全案视觉设计师 / 内容运营与策划</p>
+
+            <div class="flex flex-col gap-4 font-mono">
+                <div class="flex items-center justify-between bg-paper border-2 border-darkText px-4 py-3 rounded-2xl">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="mail" class="w-5 h-5 text-vibrantOrange"></i>
+                        <span class="text-darkText font-bold text-sm sm:text-base">1012359686@qq.com</span>
+                    </div>
+                    <button onclick="copyToClipboard('1012359686@qq.com', '邮箱地址')" class="bg-warmPink border border-darkText px-3 py-1 rounded-xl font-hand text-base font-bold hover:bg-vibrantOrange transition">
+                        复制邮箱
+                    </button>
+                </div>
+
+                <div class="flex items-center justify-between bg-paper border-2 border-darkText px-4 py-3 rounded-2xl">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="phone" class="w-5 h-5 text-softGreen"></i>
+                        <span class="text-darkText font-bold text-sm sm:text-base">18181508281</span>
+                    </div>
+                    <button onclick="copyToClipboard('18181508281', '电话号码')" class="bg-softGreen border border-darkText px-3 py-1 rounded-xl font-hand text-base font-bold hover:bg-vibrantOrange transition">
+                        复制电话
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <p class="font-hand text-lg text-sketchGray mt-12">
+            © 2026 Bao Yongxi Portfolio. Hand-crafted with warmth and creativity.
+        </p>
+    </section>
+
+    <!-- Fullscreen Image Lightbox Modal -->
+    <div id="imageModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4 transition-opacity duration-300">
+        <div class="relative bg-cream border-3 border-darkText p-3 sm:p-5 rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col items-center justify-between paper-shadow shadow-2xl">
+            <button onclick="closeImageModal()" class="absolute -top-4 -right-4 bg-warmPink hover:bg-vibrantOrange border-2 border-darkText w-10 h-10 rounded-full font-bold text-xl flex items-center justify-center paper-shadow-sm z-10 transition">
+                ✕
+            </button>
+            <div class="w-full flex-1 overflow-auto rounded-2xl border-2 border-darkText bg-white flex items-center justify-center p-2 mb-3">
+                <img id="modalImg" src="" alt="放大预览图" class="max-w-full max-h-[70vh] object-contain">
+            </div>
+            <p id="modalCaption" class="font-art text-xl text-darkText text-center"></p>
+        </div>
+    </div>
+
+    <!-- Floating Copy Toast Notification -->
+    <div id="copyToast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-darkText text-cream border-2 border-warmPink px-6 py-2.5 rounded-full font-art text-lg paper-shadow hidden transition-all">
+        <span id="toastMsg">复制成功！</span>
+    </div>
+
+    <script>
+        window.onload = function() {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+            update3DCarousel();
+        };
+
+        /* --- SECTION 01: 3D Spatial Coverflow Carousel Logic --- */
+        let currentCarouselIdx = 0;
+        const totalCarouselSlides = 6;
+
+        function update3DCarousel() {
+            const slides = document.querySelectorAll('.coverflow-slide');
+            const counter = document.getElementById('carouselCounter');
+            const dots = document.querySelectorAll('.carousel-dot');
+
+            if (counter) {
+                counter.innerText = `${currentCarouselIdx + 1} / ${totalCarouselSlides}`;
+            }
+
+            slides.forEach((slide, index) => {
+                let offset = index - currentCarouselIdx;
+                
+                if (offset > 2) offset -= totalCarouselSlides;
+                if (offset < -2) offset += totalCarouselSlides;
+
+                if (offset === 0) {
+                    slide.style.transform = `translateX(0px) translateZ(100px) rotateY(0deg) scale(1)`;
+                    slide.style.opacity = '1';
+                    slide.style.zIndex = '20';
+                    slide.style.pointerEvents = 'auto';
+                } else if (offset === 1) {
+                    slide.style.transform = `translateX(180px) translateZ(-50px) rotateY(-25deg) scale(0.85)`;
+                    slide.style.opacity = '0.75';
+                    slide.style.zIndex = '10';
+                    slide.style.pointerEvents = 'auto';
+                } else if (offset === -1) {
+                    slide.style.transform = `translateX(-180px) translateZ(-50px) rotateY(25deg) scale(0.85)`;
+                    slide.style.opacity = '0.75';
+                    slide.style.zIndex = '10';
+                    slide.style.pointerEvents = 'auto';
+                } else if (offset === 2 || offset === -4) {
+                    slide.style.transform = `translateX(320px) translateZ(-150px) rotateY(-35deg) scale(0.7)`;
+                    slide.style.opacity = '0.35';
+                    slide.style.zIndex = '5';
+                    slide.style.pointerEvents = 'auto';
+                } else if (offset === -2 || offset === 4) {
+                    slide.style.transform = `translateX(-320px) translateZ(-150px) rotateY(35deg) scale(0.7)`;
+                    slide.style.opacity = '0.35';
+                    slide.style.zIndex = '5';
+                    slide.style.pointerEvents = 'auto';
+                } else {
+                    slide.style.transform = `translateX(0px) translateZ(-300px) scale(0.5)`;
+                    slide.style.opacity = '0';
+                    slide.style.zIndex = '0';
+                    slide.style.pointerEvents = 'none';
+                }
+            });
+
+            dots.forEach((dot, idx) => {
+                if (idx === currentCarouselIdx) {
+                    dot.classList.add('bg-darkText');
+                    dot.classList.remove('bg-cream');
+                } else {
+                    dot.classList.remove('bg-darkText');
+                    dot.classList.add('bg-cream');
+                }
+            });
+        }
+
+        function move3DCarousel(direction) {
+            currentCarouselIdx = (currentCarouselIdx + direction + totalCarouselSlides) % totalCarouselSlides;
+            update3DCarousel();
+        }
+
+        function set3DCarousel(index) {
+            currentCarouselIdx = index;
+            update3DCarousel();
+        }
+
+        /* --- SECTION 02: Accordion Toggle Logic --- */
+        function toggleP2Block(blockId) {
+            const content = document.getElementById(`content-${blockId}`);
+            const chevron = document.getElementById(`chevron-${blockId}`);
+
+            if (content) {
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    if (chevron) chevron.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    if (chevron) chevron.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        /* --- SECTION 03: Folder Toggle Logic --- */
+        function toggleP3Folder(folderId) {
+            const content = document.getElementById(`content-${folderId}`);
+            const chevron = document.getElementById(`chevron-${folderId}`);
+
+            if (content) {
+                if (content.classList.contains('hidden')) {
+                    content.classList.remove('hidden');
+                    if (chevron) chevron.style.transform = 'rotate(180deg)';
+                } else {
+                    content.classList.add('hidden');
+                    if (chevron) chevron.style.transform = 'rotate(0deg)';
+                }
+            }
+        }
+
+        /* --- Image Lightbox Modal Logic --- */
+        function openImageModal(imgUrl, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            const modalCaption = document.getElementById('modalCaption');
+
+            if (modal && modalImg && modalCaption) {
+                modalImg.src = imgUrl;
+                modalCaption.innerText = caption || '作品放大图';
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        /* --- Clipboard Copy Logic --- */
+        function copyToClipboard(text, label) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(`已成功复制${label}！`);
+                }).catch(() => {
+                    fallbackCopy(text, label);
+                });
+            } else {
+                fallbackCopy(text, label);
+            }
+        }
+
+        function fallbackCopy(text, label) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast(`已成功复制${label}！`);
+            } catch (err) {
+                showToast(`复制失败，请手动复制`);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('copyToast');
+            const toastMsg = document.getElementById('toastMsg');
+            if (toast && toastMsg) {
+                toastMsg.innerText = msg;
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 2500);
+            }
+        }
+    </script>
+</body>
+</html>
